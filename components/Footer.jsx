@@ -3,9 +3,9 @@ export default function Footer() {
     <>
       <footer className="p-3 text-center mb-20">
         <p>
-          Dibuat dengan ❤ oleh{' '}
-          <a href="https://miaw.my.id" target="_blank">
-            Awy
+          Miaw Team Community X{' '}
+          <a href="https://whatsapp.com/channel/0029VaabHSIKAwEoEQ03X12x" target="_blank">
+            𝐐𝐮𝐨𝐭𝐞𝐬 𝐈𝐬𝐥𝐚𝐦𝐢𝐜
           </a>{' '}
           {/* untuk Sweet heartnya */}
         </p>
