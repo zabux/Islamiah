@@ -1,93 +1,50 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState, useEffect } from 'react';
 import Layout from '../../components/Layouts';
 import Loading from '../../components/Loading';
 import ErrorCard from '../../components/ErrorCards';
 
-export default function QiblaFinder() {
-  const [coordinates, setCoordinates] = useState(null);
-  const [qiblaDirection, setQiblaDirection] = useState(null);
-  const [loading, setLoading] = useState(false);
+const quotes = [
+  "Sesungguhnya sesudah kesulitan itu ada kemudahan. - QS. Al-Insyirah: 6",
+  "Dan mintalah pertolongan (kepada Allah) dengan sabar dan shalat. - QS. Al-Baqarah: 45",
+  "Allah tidak membebani seseorang melainkan sesuai dengan kesanggupannya. - QS. Al-Baqarah: 286",
+  "Bersabarlah, sesungguhnya Allah bersama orang-orang yang sabar. - QS. Al-Anfal: 46",
+  "Dan barangsiapa bertawakkal kepada Allah, niscaya Allah akan mencukupkan (keperluannya). - QS. At-Talaq: 3",
+  "Sesungguhnya Allah tidak akan mengubah keadaan suatu kaum sebelum mereka mengubah keadaan diri mereka sendiri. - QS. Ar-Ra'd: 11",
+  "Dan apabila hamba-hamba-Ku bertanya kepadamu tentang Aku, maka (jawablah), bahwasanya Aku adalah dekat. - QS. Al-Baqarah: 186",
+  "Dan janganlah kamu berputus asa dari rahmat Allah. - QS. Az-Zumar: 53",
+  "Maka sesungguhnya bersama kesulitan ada kemudahan. - QS. Al-Insyirah: 5",
+  "Dan janganlah kamu berjalan di muka bumi ini dengan sombong. - QS. Luqman: 18"
+];
+
+export default function QuotesCard() {
+  const [index, setIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const videoRef = useRef(null);
 
   useEffect(() => {
-    if (!coordinates) return;
+    const interval = setInterval(() => {
+      setIndex((prevIndex) => (prevIndex + 1) % quotes.length);
+    }, 5000); // Change quote every 5 seconds
 
-    setLoading(true);
-    setError(null); // Reset error sebelum melakukan fetch
+    setLoading(false); // Simulate loading complete
+    setError(null); // Simulate no error
 
-    fetch(`https://api.aladhan.com/v1/qibla/${coordinates.latitude}/${coordinates.longitude}`)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setQiblaDirection(data.data.direction); // Menggunakan data dari API
-        setLoading(false);
-      })
-      .catch((err) => {
-        setLoading(false);
-        setError(err.message);
-      });
-  }, [coordinates]);
-
-  useEffect(() => {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setCoordinates({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-          });
-        },
-        (error) => {
-          setError('Gagal mendapatkan lokasi: ' + error.message);
-        }
-      );
-    } else {
-      setError('Geolocation tidak didukung oleh browser ini');
-    }
+    return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    if (videoRef.current) {
-      navigator.mediaDevices.getUserMedia({ video: true })
-        .then((stream) => {
-          videoRef.current.srcObject = stream;
-        })
-        .catch((err) => {
-          setError('Gagal mengakses kamera: ' + err.message);
-        });
-    }
-  }, [videoRef]);
-
   return (
-    <Layout name="Qibla Finder">
-      <h1 className="text-3xl font-bold text-rose-500 mb-3">Penentu Arah Kiblat</h1>
-      <p>Temukan arah kiblat berdasarkan lokasi Anda saat ini.</p>
+    <Layout name="Islamic Quotes">
+      <h1 className="text-3xl font-bold text-rose-500 mb-3">Islamic Quotes</h1>
+      <p>Find inspiration and guidance from the words of the Quran.</p>
 
-      {loading && <Loading message="Memuat arah kiblat..." />}
-      {error && <ErrorCard message={`Gagal memuat data: ${error}`} />}
+      {loading && <Loading message="Loading quotes..." />}
+      {error && <ErrorCard message={`Failed to load: ${error}`} />}
 
-      {qiblaDirection && (
-        <div className="mt-4">
-          <h2 className="text-xl font-bold">Arah Kiblat:</h2>
-          <p className="text-lg">Arah kiblat dari lokasi Anda adalah {qiblaDirection.toFixed(2)}° dari utara.</p>
+      {!loading && !error && (
+        <div className="mt-4 p-6 bg-white rounded-lg shadow-lg">
+          <p className="text-lg text-gray-800">{quotes[index]}</p>
         </div>
       )}
-
-      <div className="mt-4">
-        <video ref={videoRef} autoPlay className="rounded-lg shadow-lg" style={{ width: '100%', height: 'auto' }}></video>
-        {qiblaDirection && (
-          <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center pointer-events-none">
-            <div className="w-32 h-32 border-4 border-rose-500 rounded-full flex items-center justify-center">
-              <div className="w-2 h-2 bg-rose-500 rounded-full"></div>
-            </div>
-          </div>
-        )}
-      </div>
     </Layout>
   );
 }
