@@ -1,30 +1,37 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export default function Header() {
+  const router = useRouter();
+
+  const handleNavigation = (path) => {
+    router.push(path);
+  };
+
   return (
     <header className="bg-rose-500 p-3 flex justify-between items-center">
       <div>
-        <Link href="/">
-          <a className="text-lg font-bold text-rose-50">𝐐𝐮𝐨𝐭𝐞𝐬 𝐈𝐬𝐥𝐚𝐦𝐢𝐜</a>
-        </Link>
+        <button onClick={() => handleNavigation('/')}>
+          <span className="text-lg font-bold text-rose-50">𝐐𝐮𝐨𝐭𝐞𝐬 𝐈𝐬𝐥𝐚𝐦𝐢𝐜</span>
+        </button>
       </div>
 
       <nav className="text-rose-50">
         <ul className="flex space-x-4">
           <li>
-            <Link href="/kalender">
-              <a>Kalender</a>
-            </Link>
+            <button onClick={() => handleNavigation('/kalender')}>
+              Kalender
+            </button>
           </li>
           <li>
-            <Link href="/quotes">
-              <a>Quotes</a>
-            </Link>
+            <button onClick={() => handleNavigation('/quotes')}>
+              Quotes
+            </button>
           </li>
           <li>
-            <Link href="/berita">
-              <a>Berita</a>
-            </Link>
+            <button onClick={() => handleNavigation('/berita')}>
+              Berita
+            </button>
           </li>
         </ul>
       </nav>
