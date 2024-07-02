@@ -1,43 +1,40 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-export default function Header() {
+const Header = () => {
   const router = useRouter();
-  const [active, setActive] = useState(null);
-  const firstPath = router.asPath;
+  const [activeItem, setActiveItem] = useState('');
 
-  const navs = [
-    { url: '/kalender', name: 'Kalender' },
+  const navigationItems = [
+    { url: '/', name: 'Home' },
     { url: '/quotes', name: 'Quotes' },
-    { url: '/berita', name: 'Berita' },
+    { url: '/services', name: 'Services' },
+    { url: '/contact', name: 'Contact' },
   ];
 
   useEffect(() => {
-    setActive(navs.find(({ url }) => url === firstPath));
-  }, []);
+    const path = router.asPath;
+    const active = navigationItems.find(item => path === item.url);
+    setActiveItem(active ? active.name : '');
+  }, [router.asPath]);
 
-  const handleNavigation = (path) => {
-    router.push(path);
+  const handleNavigation = (url) => {
+    router.push(url);
   };
 
   return (
-    <header className="bg-rose-500 p-3 flex justify-between items-center">
-      <div>
-        <button onClick={() => handleNavigation('/')}>
-          <span className="text-lg font-bold text-rose-50">𝐐𝐮𝐨𝐭𝐞𝐬 𝐈𝐬𝐥𝐚𝐦𝐢𝐜</span>
-        </button>
-      </div>
-
-      <nav className="text-rose-50">
-        <ul className="flex space-x-4">
-          {navs.map(({ url, name }) => (
-            <li key={url}>
+    <header>
+      <button onClick={() => handleNavigation('/')}>𝐐𝐮𝐨𝐭𝐞𝐬 𝐈𝐬𝐥𝐚𝐦𝐢𝐜</button>
+      <nav>
+        <ul>
+          {navigationItems.map(item => (
+            <li key={item.url}>
               <button
-                onClick={() => handleNavigation(url)}
-                className={active && active.url === url ? 'font-bold' : ''}
+                onClick={() => handleNavigation(item.url)}
+                style={{ fontWeight: item.name === activeItem ? 'bold' : 'normal' }}
               >
-                {name}
+                {item.name}
               </button>
             </li>
           ))}
@@ -45,4 +42,6 @@ export default function Header() {
       </nav>
     </header>
   );
-}
+};
+
+export default Header;
