@@ -17,7 +17,7 @@ const quotes = [
   "Dan janganlah kamu berjalan di muka bumi ini dengan sombong. - QS. Luqman: 18"
 ];
 
-const QuotesCard = () => {
+const QuotesPage = () => {
   const [index, setIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -42,12 +42,10 @@ const QuotesCard = () => {
       {error && <ErrorCard message={`Failed to load: ${error}`} />}
 
       {!loading && !error && (
-        <div className="mt-4 p-6 bg-white rounded-lg shadow-lg">
-          <p className="text-lg text-gray-800">{quotes[index]}</p>
-        </div>
+        <QuotesCard quote={quotes[index]} />
       )}
     </Layout>
   );
 };
 
-export default QuotesCard;
+export default QuotesPage;
