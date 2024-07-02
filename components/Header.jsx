@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 export default function Header() {
   const router = useRouter();
   const [active, setActive] = useState(null);
-  const firstPath = '/' + router.asPath.split('/')[1];
+  const firstPath = router.asPath;
 
   const navs = [
     { url: '/kalender', name: 'Kalender' },
