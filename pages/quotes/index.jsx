@@ -7,20 +7,30 @@ import Loading from '../../components/Loading'
 export default function Quotes() {
   const [quotes, setQuotes] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(null) // Mengubah tipe error menjadi objek untuk detail
 
   // Fetch data
   useEffect(() => {
     setLoading(true)
-    fetch('https://api.hadithapi.com/v1/hadiths/random')
-      .then((res) => res.json())
+    setError(null) // Reset error sebelum melakukan fetch
+    fetch('https://api.hadithapi.com/v1/hadiths/random', {
+      headers: {
+        'Authorization': 'Bearer $2y$10$eQoMPZw9CmQ11eJDgSLaOI34keRpudEW8Phsci3tNHgacAmDSb6i' // Ganti YOUR_API_KEY dengan API key Anda
+      }
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
       .then((data) => {
         setQuotes([data.hadith]) // Mengubah data menjadi array agar sesuai dengan map
         setLoading(false)
       })
-      .catch(() => {
+      .catch((err) => {
         setLoading(false)
-        setError(true)
+        setError(err.message)
       })
   }, [])
 
@@ -32,7 +42,7 @@ export default function Quotes() {
 
       {loading && <Loading message="Memuat quotes..." />}
       {error && (
-        <ErrorCard message="Gagal memuat data, silakan periksa koneksi internet Anda lalu refresh halaman ini." />
+        <ErrorCard message={`Gagal memuat data: ${error}`} />
       )}
 
       {quotes && (
