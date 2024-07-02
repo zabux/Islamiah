@@ -6,11 +6,9 @@ import ErrorCard from '../../components/ErrorCards';
 export default function QiblaFinder() {
   const [coordinates, setCoordinates] = useState(null);
   const [qiblaDirection, setQiblaDirection] = useState(null);
-  const [deviceOrientation, setDeviceOrientation] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const videoRef = useRef(null);
-  const compassRef = useRef(null);
 
   useEffect(() => {
     if (!coordinates) return;
@@ -65,38 +63,6 @@ export default function QiblaFinder() {
     }
   }, [videoRef]);
 
-  useEffect(() => {
-    const handleOrientation = (event) => {
-      setDeviceOrientation(event.alpha); // Menggunakan alpha (kompas)
-    };
-
-    if (window.DeviceOrientationEvent) {
-      window.addEventListener("deviceorientation", handleOrientation, true);
-    } else {
-      setError('Device orientation tidak didukung oleh browser ini');
-    }
-
-    return () => {
-      window.removeEventListener("deviceorientation", handleOrientation);
-    };
-  }, []);
-
-  const calculateQiblaDirection = () => {
-    if (qiblaDirection !== null && deviceOrientation !== null) {
-      const qiblaRelativeToNorth = qiblaDirection - deviceOrientation;
-      return qiblaRelativeToNorth < 0 ? qiblaRelativeToNorth + 360 : qiblaRelativeToNorth;
-    }
-    return null;
-  };
-
-  const qiblaRelativeDirection = calculateQiblaDirection();
-
-  useEffect(() => {
-    if (compassRef.current && qiblaRelativeDirection !== null) {
-      compassRef.current.style.transform = `rotate(${qiblaRelativeDirection}deg)`;
-    }
-  }, [qiblaRelativeDirection]);
-
   return (
     <Layout name="Qibla Finder">
       <h1 className="text-3xl font-bold text-rose-500 mb-3">Penentu Arah Kiblat</h1>
@@ -112,11 +78,11 @@ export default function QiblaFinder() {
         </div>
       )}
 
-      <div className="mt-4 relative">
+      <div className="mt-4">
         <video ref={videoRef} autoPlay className="rounded-lg shadow-lg" style={{ width: '100%', height: 'auto' }}></video>
         {qiblaDirection && (
           <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center pointer-events-none">
-            <div ref={compassRef} className="w-32 h-32 border-4 border-rose-500 rounded-full flex items-center justify-center transition-transform duration-300 ease-out">
+            <div className="w-32 h-32 border-4 border-rose-500 rounded-full flex items-center justify-center">
               <div className="w-2 h-2 bg-rose-500 rounded-full"></div>
             </div>
           </div>
