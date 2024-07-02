@@ -152,37 +152,38 @@ export default function JadwalSolatHariIni() {
           {jadwalSholat.date && (
             <>
               <p>Berikut jadwal sholat hari ini.</p>
-<div className="flex space-x-2 mt-3">
-  <button
-    onClick={() => setDisplayMap(!displayMap)}
-    className="px-3 py-2 rounded-lg bg-rose-500 text-rose-50"
-    title="Klik untuk mengatur lokasi sesuai keinginan"
-  >
-    Atur lokasi
-  </button>
-  <button
-    onClick={() => window.location.href = '/kalender'}
-    className="px-3 py-2 rounded-lg bg-blue-500 text-white flex items-center"
-    title="Klik untuk membuka kalender"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      className="h-5 w-5 mr-2"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-      />
-    </svg>
-    Kalender
-  </button>
-</div>
-
+import { useRouter } from 'next/router';
+  const router = useRouter();
+    <div className="flex space-x-2 mt-3">
+      <button
+        onClick={() => setDisplayMap(!displayMap)}
+        className="px-3 py-2 rounded-lg bg-rose-500 text-rose-50"
+        title="Klik untuk mengatur lokasi sesuai keinginan"
+      >
+        Atur lokasi
+      </button>
+      <button
+        onClick={() => router.push('/kalender')}
+        className="px-3 py-2 rounded-lg bg-blue-500 text-white flex items-center"
+        title="Klik untuk membuka kalender"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5 mr-2"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+          />
+        </svg>
+        Kalender
+      </button>
+    </div>
               <div className="grid grid-cols-2">
                 <p className="flex items-center mt-3">
                   <svg
