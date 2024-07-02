@@ -12,10 +12,10 @@ export default function Quotes() {
   // Fetch data
   useEffect(() => {
     setLoading(true)
-    fetch('https://api.quotable.io/quotes')
+    fetch('https://api.hadithapi.com/v1/hadiths/random')
       .then((res) => res.json())
-      .then(({ results }) => {
-        setQuotes(results)
+      .then((data) => {
+        setQuotes([data.hadith]) // Mengubah data menjadi array agar sesuai dengan map
         setLoading(false)
       })
       .catch(() => {
@@ -26,9 +26,9 @@ export default function Quotes() {
 
   return (
     <Layout name="Quotes">
-      <h1 className="text-3xl font-bold text-rose-500 mb-3">Kumpulan Quotes</h1>
+      <h1 className="text-3xl font-bold text-rose-500 mb-3">Kumpulan Quotes Islami</h1>
 
-      <p>Berikut ini adalah kumpulan quotes inspiratif.</p>
+      <p>Berikut ini adalah kumpulan quotes inspiratif Islami.</p>
 
       {loading && <Loading message="Memuat quotes..." />}
       {error && (
