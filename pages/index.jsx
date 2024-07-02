@@ -139,33 +139,35 @@ export default function JadwalSolatHariIni() {
 
     <Tracker callback={(coords) => setCoordinates(coords)} />
 
-    <button
-      onClick={() => setDisplayMap(!displayMap)}
-      className="px-3 py-2 rounded-lg bg-rose-500 text-rose-50"
-    >
-      Simpan
-    </button>
-
-    <button
-      onClick={() => window.location.href='/kalender'}
-      className="px-3 py-2 ml-2 rounded-lg bg-rose-500 text-rose-50 flex items-center"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-5 mx-auto"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth="2"
+    <div className="flex space-x-2">
+      <button
+        onClick={() => setDisplayMap(!displayMap)}
+        className="px-3 py-2 rounded-lg bg-rose-500 text-rose-50"
       >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-        />
-      </svg>
-      Kalender
-    </button>
+        Simpan
+      </button>
+
+      <button
+        onClick={() => window.location.href='/kalender'}
+        className="px-3 py-2 rounded-lg bg-rose-500 text-rose-50 flex items-center"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-5 w-5 mx-auto"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+          />
+        </svg>
+        Kalender
+      </button>
+    </div>
   </div>
 
       {jadwalSholat && (
