@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export default function QuotesCard({ quote }) {
   return (
     <div className="shadow rounded-xl overflow-hidden hover:scale-105 duration-300">
@@ -10,5 +12,9 @@ export default function QuotesCard({ quote }) {
         </p>
       </div>
     </div>
-  )
+  );
 }
+
+QuotesCard.propTypes = {
+  quote: PropTypes.string.isRequired,
+};
