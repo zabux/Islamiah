@@ -121,7 +121,7 @@ export default function JadwalSolatHariIni() {
   })
 
   return (
- <Layout name="Jadwal Sholat">
+    <Layout name="Jadwal Sholat">
       <h1 className="text-3xl font-bold text-rose-500 mb-3">Jadwal Sholat</h1>
 
       {loading && <Loading message="Memuat jadwal sholat..." />}
@@ -129,50 +129,23 @@ export default function JadwalSolatHariIni() {
         <ErrorCard message="Gagal memuat data, silakan periksa koneksi internet Anda lalu refresh halaman ini." />
       )}
 
-      <div className="flex space-x-2 mb-3">
+      <div
+        className={`fixed inset-0 p-3 bg-white duration-300 ${
+          displayMap ? 'visible' : 'invisible'
+        }`}
+      >
+        <h2 className="text-lg font-bold text-rose-500">Atur Lokasi</h2>
+        <p>Silakan klik lokasi pada map untuk mengganti lokasi.</p>
+
+        <Tracker callback={(coords) => setCoordinates(coords)} />
+
         <button
           onClick={() => setDisplayMap(!displayMap)}
           className="px-3 py-2 rounded-lg bg-rose-500 text-rose-50"
         >
-          Atur Lokasi
-        </button>
-
-        <button
-          onClick={() => window.location.href='/kalender'}
-          className="px-3 py-2 rounded-lg bg-rose-500 text-rose-50 flex items-center"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 mx-auto"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-            />
-          </svg>
-          Kalender
+          Simpan
         </button>
       </div>
-
-      {displayMap && (
-        <div className="fixed inset-0 p-3 bg-white duration-300 visible">
-          <h2 className="text-lg font-bold text-rose-500">Atur Lokasi</h2>
-          <p>Silakan klik lokasi pada map untuk mengganti lokasi.</p>
-
-          <Tracker callback={(coords) => console.log(coords)} />
-
-          <button
-            onClick={() => setDisplayMap(!displayMap)}
-            className="px-3 py-2 rounded-lg bg-rose-500 text-rose-50"
-          >
-            Simpan
-          </button>
-        </div>
 
       {jadwalSholat && (
         <>
