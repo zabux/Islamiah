@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '../../components/Layouts';
 import Loading from '../../components/Loading';
 import ErrorCard from '../../components/ErrorCards';
+import QuotesCard from '../../components/QuotesCard';
 
 const quotes = [
   "Sesungguhnya sesudah kesulitan itu ada kemudahan. - QS. Al-Insyirah: 6",
@@ -16,7 +17,7 @@ const quotes = [
   "Dan janganlah kamu berjalan di muka bumi ini dengan sombong. - QS. Luqman: 18"
 ];
 
-export default function QuotesCard() {
+const QuotesCard = () => {
   const [index, setIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -47,4 +48,6 @@ export default function QuotesCard() {
       )}
     </Layout>
   );
-}
+};
+
+export default QuotesCard;
