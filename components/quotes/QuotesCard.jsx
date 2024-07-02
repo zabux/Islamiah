@@ -1,8 +1,14 @@
 export default function QuotesCard({ quote }) {
   return (
-    <div className="bg-white p-5 rounded shadow-md">
-      <p className="text-xl font-semibold mb-3">"{quote.content}"</p>
-      <p className="text-right text-sm text-gray-500">- {quote.author}</p>
+    <div className="shadow rounded-xl overflow-hidden hover:scale-105 duration-300">
+      <div className="p-3">
+        <h2 className="font-bold text-lg md:text-xl text-rose-400 mb-3">
+          "{quote.content}"
+        </h2>
+        <p className="text-right text-sm text-gray-500">
+          - {quote.author}
+        </p>
+      </div>
     </div>
   )
 }
