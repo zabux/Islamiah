@@ -1,8 +1,21 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
 
 export default function Header() {
   const router = useRouter();
+  const [active, setActive] = useState(null);
+  const firstPath = '/' + router.asPath.split('/')[1];
+
+  const navs = [
+    { url: '/kalender', name: 'Kalender' },
+    { url: '/quotes', name: 'Quotes' },
+    { url: '/berita', name: 'Berita' },
+  ];
+
+  useEffect(() => {
+    setActive(navs.find(({ url }) => url === firstPath));
+  }, []);
 
   const handleNavigation = (path) => {
     router.push(path);
@@ -18,21 +31,16 @@ export default function Header() {
 
       <nav className="text-rose-50">
         <ul className="flex space-x-4">
-          <li>
-            <button onClick={() => handleNavigation('/kalender')}>
-              Kalender
-            </button>
-          </li>
-          <li>
-            <button onClick={() => handleNavigation('/quotes')}>
-              Quotes
-            </button>
-          </li>
-          <li>
-            <button onClick={() => handleNavigation('/berita')}>
-              Berita
-            </button>
-          </li>
+          {navs.map(({ url, name }) => (
+            <li key={url}>
+              <button
+                onClick={() => handleNavigation(url)}
+                className={active && active.url === url ? 'font-bold' : ''}
+              >
+                {name}
+              </button>
+            </li>
+          ))}
         </ul>
       </nav>
     </header>
