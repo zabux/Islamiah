@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Layout from '../../components/Layouts';
 import Loading from '../../components/Loading';
 import ErrorCard from '../../components/ErrorCards';
-import QuotesCard from '../../components/quotes/QuotesCard';
+import QuotesCard from '../../components/QuotesCard';
 
 const quotes = [
   "Sesungguhnya sesudah kesulitan itu ada kemudahan. - QS. Al-Insyirah: 6",
