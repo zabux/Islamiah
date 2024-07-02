@@ -12,7 +12,7 @@ export default function Quotes() {
   // Fetch data
   useEffect(() => {
     setLoading(true)
-    fetch('https://api-quotable.io/quotes')
+    fetch('https://api.quotable.io/quotes')
       .then((res) => res.json())
       .then(({ results }) => {
         setQuotes(results)
