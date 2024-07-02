@@ -7,15 +7,14 @@ import Loading from '../../components/Loading'
 export default function Quotes() {
   const [quotes, setQuotes] = useState(null)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null) // Mengubah tipe error menjadi objek untuk detail
+  const [error, setError] = useState(null)
 
-  // Fetch data
   useEffect(() => {
     setLoading(true)
     setError(null) // Reset error sebelum melakukan fetch
     fetch('https://api.hadithapi.com/v1/hadiths/random', {
       headers: {
-        'Authorization': 'Bearer $2y$10$eQoMPZw9CmQ11eJDgSLaOI34keRpudEW8Phsci3tNHgacAmDSb6i' // Ganti YOUR_API_KEY dengan API key Anda
+        'Authorization': 'Bearer $2y$10$eQoMPZw9CmQ11eJDgSLaOI34keRpudEW8Phsci3tNHgacAmDSb6i' // API key Anda
       }
     })
       .then((res) => {
