@@ -12,18 +12,18 @@ export default function Header() {
       <nav className="text-rose-50">
         <ul className="flex space-x-4">
           <li>
-            <Link href="/about">
-              <a>About</a>
+            <Link href="/kalender">
+              <a>Kalender</a>
             </Link>
           </li>
           <li>
-            <Link href="/services">
-              <a>Services</a>
+            <Link href="/quotes">
+              <a>Quotes</a>
             </Link>
           </li>
           <li>
-            <Link href="/contact">
-              <a>Contact</a>
+            <Link href="/berita">
+              <a>Berita</a>
             </Link>
           </li>
         </ul>
