@@ -121,36 +121,31 @@ export default function JadwalSolatHariIni() {
   })
 
   return (
-<Layout name="Jadwal Sholat">
-  <div className="flex justify-end items-center p-3">
-    {/* Tambahkan menu navigasi di sini */}
-  </div>
-  
-  <h1 className="text-3xl font-bold text-rose-500 mb-3">Jadwal Sholat</h1>
+    <Layout name="Jadwal Sholat">
+      <h1 className="text-3xl font-bold text-rose-500 mb-3">Jadwal Sholat</h1>
 
-  {loading && <Loading message="Memuat jadwal sholat..." />}
-  {error && (
-    <ErrorCard message="Gagal memuat data, silakan periksa koneksi internet Anda lalu refresh halaman ini." />
-  )}
+      {loading && <Loading message="Memuat jadwal sholat..." />}
+      {error && (
+        <ErrorCard message="Gagal memuat data, silakan periksa koneksi internet Anda lalu refresh halaman ini." />
+      )}
 
-  <div
-    className={`fixed inset-0 p-3 bg-white duration-300 ${
-      displayMap ? "visible" : "invisible"
-    }`}
-  >
-    <h2 className="text-lg font-bold text-rose-500">Atur Lokasi</h2>
-    <p>Silakan klik lokasi pada map untuk mengganti lokasi.</p>
+      <div
+        className={`fixed inset-0 p-3 bg-white duration-300 ${
+          displayMap ? 'visible' : 'invisible'
+        }`}
+      >
+        <h2 className="text-lg font-bold text-rose-500">Atur Lokasi</h2>
+        <p>Silakan klik lokasi pada map untuk mengganti lokasi.</p>
 
-    <Tracker callback={(coords) => setCoordinates(coords)} />
+        <Tracker callback={(coords) => setCoordinates(coords)} />
 
-    <button
-      onClick={() => setDisplayMap(!displayMap)}
-      className="px-3 py-2 rounded-lg bg-rose-500 text-rose-50"
-    >
-      Simpan
-    </button>
-  </div>
-</Layout>
+        <button
+          onClick={() => setDisplayMap(!displayMap)}
+          className="px-3 py-2 rounded-lg bg-rose-500 text-rose-50"
+        >
+          Simpan
+        </button>
+      </div>
 
       {jadwalSholat && (
         <>
