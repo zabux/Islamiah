@@ -12,11 +12,7 @@ export default function Quotes() {
   useEffect(() => {
     setLoading(true)
     setError(null) // Reset error sebelum melakukan fetch
-    fetch('https://api.hadithapi.com/v1/hadiths/random', {
-      headers: {
-        'Authorization': 'Bearer $2y$10$eQoMPZw9CmQ11eJDgSLaOI34keRpudEW8Phsci3tNHgacAmDSb6i' // API key Anda
-      }
-    })
+    fetch('https://api.kata.id/quotes')
       .then((res) => {
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
@@ -24,7 +20,7 @@ export default function Quotes() {
         return res.json();
       })
       .then((data) => {
-        setQuotes([data.hadith]) // Mengubah data menjadi array agar sesuai dengan map
+        setQuotes(data.quotes) // Menggunakan data dari API
         setLoading(false)
       })
       .catch((err) => {
